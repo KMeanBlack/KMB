@@ -1,0 +1,68 @@
+{% extends 'blog/basic.html' %}
+
+{% block title %} {{notes.subject}} | K Mean Black  {% endblock %}
+{% block content %}
+
+<section class="testimonials1 cid-rR2EBpLLYM cid-rR7CaC6iKS" id="team2-c">
+<div class="text-secondary px-4 py-5 text-center">
+    <div class="py-5">
+      <h1 class="display-3 fw-bold text-white">K Mean Black</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb- text-white">“Develop success from failures. Discouragement and failure are two of the surest stepping stones to success.” </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <button type="button" class="btn btn-outline-info btn-sm px-4 me-sm-3 fw-bold"><a href="/education/student">Back</a></button>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container-fluid my-5">
+  <div class="row align-items-center">
+    
+    <div class="col-12 col-md-4 text-center mb-4">
+      <img src="/media/{{notes.image}}" class="img-fluid rounded" alt="Notes Image">
+    </div>
+    <!--<div class="row">
+        <button class="btn btn-primary my-4 mx-20"> Video </button>
+    </div>-->
+       
+        
+    <div class="col-12 col-md-8">
+      <div class="news-detalis-content">
+        <ul class="blog-meta mb-3 list-unstyled">
+          <li><strong>Name:</strong> {{notes.notes_name|safe}}</li>
+          <li><strong>Branch:</strong> {{notes.branch}}</li>
+          <li><strong>Published:</strong> {{notes.pub_date}}</li>
+                    </ul>
+                    <h4 class="news-title">{{notes.subject}} </h4>
+                    <p class="lead">{{notes.description|safe}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+        </div>
+</div>
+
+<!--<div class="container my-4">
+    <div class="row">
+    <div class="col-md-4">
+    <div class="row">
+       <img src="/media//{{notes.image}}" width="500px" height="385px">
+    </div>
+    <div class="row">
+        <button class="btn btn-primary my-4 mx-3"> Buy Now</button>
+        <button class="btn btn-primary my-4 mx-2"> Add To Cart</button>
+    </div>
+        </div>
+    <div class="col-md-8">
+        <h5>{{notes.notes_name}}</h5>
+        <p><b> Rs.{{notes.price}}</b></p>
+        <p>{{notes.description|safe}}</p>
+    </div>
+        </div>
+</div>
+<script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>-->
+{% endblock %}
+

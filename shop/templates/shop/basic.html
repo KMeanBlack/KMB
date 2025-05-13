@@ -1,0 +1,287 @@
+<!doctype html>
+{% load static %}
+<html class="no-js" lang="zxx">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>K Mean Black</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Place favicon.ico in the root directory -->
+      
+      <!-- CSS here -->
+   
+      <link rel="stylesheet" href="{% static 'home/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'home/bootstrap-grid.min.css' %}">
+      
+          <link rel="stylesheet" href="{% static 'assets/css/backtotop.css' %}">
+          <link rel="stylesheet" href="{% static 'assets/css/font-awesome-pro.css' %}">
+          <link rel="stylesheet" href="{% static 'assets/css/default.css' %}">
+          <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+          
+    <title>{% block title%} {% endblock %}</title>
+     <style>
+       {% block css %} {% endblock %}
+  </style>
+  </head>
+  <body>
+ <!--[if lte IE 9]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+      <![endif]-->
+
+   <!-- back to top start -->
+   <div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+       <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+</div>
+ <!-- back to top end -->
+ <header class="header d-blue-bg">
+  <div class="header-top">
+      <div class="container">
+          <div class="header-inner">
+              <div class="row align-items-center">
+                  <div class="col-xl-6 col-lg-7">
+                      <div class="header-inner-start">
+                          
+                          <div class="support d-none d-sm-block">
+                          {% if user.is_authenticated %}
+                          <p>Welcome
+                              {% if user.first_name == "" %}
+                                  {{user.email}}
+                              {% else %}
+                                  {{user.first_name}} {{user.last_name}}
+                              {% endif %}
+                          </p>
+                          {% else %}
+                          <p>Please do Login First...</p>
+                          {% endif %}
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-5 d-none d-lg-block">
+                      <div class="header-inner-end text-md-end">
+                          <div class="ovic-menu-wrapper">
+                              <ul>
+                                  <li><a href="/shop/aboutus">About Us</a></li>
+                                  <li><a href="/shop/tracker">Order Tracking</a></li>
+                                  <li><a href="/shop/contact">Contact Us</a></li>
+                                 <!--<li><a href="/shop/faq">FAQs</a></li>-->
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="header-mid">
+    <div class="container">
+        <div class="heade-mid-inner">
+            <div class="row align-items-center">
+                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                    <div class="header__info">
+                        <div class="logo">
+                            <a href="/shop" class="logo-image"><img src="{% static 'shop\Main logo.png' %}" alt="logo"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-4 d-none d-lg-block">
+                    <div class="header__search" id="navbarSupportedContent">
+                        <form method='get' action='/shop/search' class="form-inline ml-150">
+                            <input class="form-control mr-lg-2 search-input" type="text" placeholder="I'm shopping for..." aria-label="Search" name='search' id='search'>
+                            <button class="btn button-primary btn-outline-success" type="submit"><i class="far fa-search"></i></button>
+                          </form>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8 py-2">
+                    <div class="header-action">
+                       
+                        <div class="block-cart action">
+                            <a class="icon-link" href="cart.html">
+                            <i class="flaticon-shopping-bag"></i>
+                            <div class="header-action">
+                                {% if user.is_authenticated %}
+                                <div class="block-userlink">
+                                    <a class="icon-link" href="{% url 'profile'%} ">
+                                    <i class="flaticon-user"></i>
+                                    <span class="text">
+                                    <span class="sub">Logout </span>
+                                    My Profile </span>
+                                    </a>
+                                </div>
+                                {% else %}
+                                <div class="block-userlink">
+                                    <a class="icon-link" href="{% url 'login'%} ">
+                                    <i class="flaticon-user"></i>
+                                    <span class="text">
+                                    <span class="sub">Login </span>
+                                    My Account </span>
+                                    </a>
+                                </div>
+                                {% endif %}
+                           
+                                            
+                                             
+                                      
+                                      
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        <div class="header__bottom">
+                          <div class="container">
+                              <div class="row g-0 align-items-center">
+                                  <div class="col-lg-3">
+                                      <div class="cat__menu-wrapper side-border d-none d-lg-block">
+                                          <div class="cat-toggle">
+                                             
+                                              <div class="cat__menu">
+                              <nav id="mobile-menu" style="display: block;">
+                                                      
+                                                  </nav>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-6 col-md-6 col-3">
+                                    <div class="header__bottom-left d-flex d-xl-block align-items-center">
+                                      <div class="side-menu d-lg-none mr-20">
+                                        <button type="button" class="side-menu-btn offcanvas-toggle-btn"><i class="fas fa-bars"></i></button>
+                                      </div>
+                                      <div class="main-menu d-none d-lg-block">
+                                          <nav>
+                                              <ul>
+                                                  <li>
+                                                      <a href="/shop" class="active">Home </a>
+                                                     
+                                                  </li>
+                                                  <li><a href="/shop/aboutus">About Us</a></li>
+                                                  <li><a href="/shop/contact">Contact Us</a></li>
+                                               
+                                                  <li><a href="/shop/tracker">My Orders</a>
+                                                  </li>
+                                                  
+                                              </ul>
+                                          </nav>
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                              </div>
+                          </div>
+                      </div>
+                    </header>
+                    <section class="features__area pt-20">
+                        <div class="container">
+                            <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-2 row-cols-1 gx-0">
+                                <div class="col">
+                                    <div class="features__item d-flex white-bg">
+                                        <div class="features__icon mr-20">
+                                            <i class="fal fa-truck"></i>
+                                        </div>
+                                        <div class="features__content">
+                                            <h6>FREE DELIVERY</h6>
+                                            <p>For all orders over ₹10000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="features__item d-flex white-bg">
+                                        <div class="features__icon mr-20">
+                                            <i class="fal fa-money-check"></i>
+                                        </div>
+                                        <div class="features__content">
+                                            <h6>SAFE PAYMENT</h6>
+                                            <p>100% secure payment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="features__item d-flex white-bg">
+                                        <div class="features__icon mr-20">
+                                            <i class="fal fa-comments-alt"></i>
+                                        </div>
+                                        <div class="features__content">
+                                            <h6>24/7 HELP CENTER</h6>
+                                            <p>Delicated 24/7 support</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="features__item features__item-last d-flex white-bg">
+                                        <div class="features__icon mr-20">
+                                            <i class="fad fa-user-headset"></i>
+                                        </div>
+                                        <div class="features__content">
+                                            <h6>FRIENDLY SERVICES</h6>
+                                            <p>30 day satisfaction guarantee</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- features__area-end -->
+                    
+                  <!-- header-end -->
+                 
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+       
+      
+    
+</ul>
+  
+    <button type="button" id = "popcart" class="btn btn-outline-info fw-bold mx-2" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Cart(<span id="cart">0</span>)</button>
+  </div>
+</nav>
+  {% block body %} {% endblock %}
+
+  {% include 'shop/footer.html' %}
+  
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+    <!-- JS here -->
+      
+   
+    {% block js %}
+    <script src="{% static 'assets/js/vendor/jquery.js' %}"></script>
+      <script src="{% static 'assets/js/meanmenu.js' %}"></script> 
+      <script src="{% static 'assets/js/backtotop.js' %}"></script>
+      <script src="{% static 'assets/js/main.js' %}"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  
+    {% endblock %}
+
+
+  </body>
+</html>

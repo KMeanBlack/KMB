@@ -1,0 +1,120 @@
+{% extends 'home/base.html' %}
+{% block title %}Home
+{% endblock title %}
+
+{% block body %}
+
+{% load static %}
+      
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'K Mean Black banner.gif' %}" class="d-block w-100" alt="...">
+            
+            <div class="carousel-caption d-none d-md-block">
+              {% for message in messages  %}            
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    <strong>Message : </strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+              {% endfor %}
+              <h4>K Mean Black Co.</h4>
+              <p>“You can get everything in life you want if you will just help enough other people get what they want.” </p>
+            </div>
+          </div>   
+        </div>
+       </div>
+        <div class="container marketing text-center my-15">
+      <script src="/docs/5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>      
+
+      <!-- START THE FEATURETTES --> 
+
+     <div class="row-links col-lg-16 pt-5 align-center">
+        <h2 class="mbr-fonts-style mbr-section-title mbr-bold mbr-black display-2">Our Work Capability</h2>
+        
+<p class="mbr-text mbr-fonts-style pt-2 display-5">At K Mean Black, our logo represents more than just a visual identity—it embodies our forward-thinking mindset and unwavering commitment to excellence. We are redefining the future of printing with innovation at our core.
+<br><br>
+Our work reflects a dedication to delivering premium printing solutions, from high-quality print designs to comprehensive brand guidelines. We equip businesses with the tools they need to stand out, grow, and streamline their creative processes.
+<br><br>
+Discover our state-of-the-art printing services and dynamic graphic design resources—each crafted to elevate your brand and enhance your production workflow. </p>     
+       </div>
+    </div>
+
+    
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center"> 
+               <div class="row align-items-center border-top">
+                  <div class="col-12 col-md-6 mb-4">
+                      <div class="mt-4 image-wrapper">
+                          <img src="{% static 'Home about us.png'%}" alt="">
+                      </div>
+                  </div>
+                  <div class="col-12 col-lg-6">
+                      <div class="text-wrapper align-left">
+                         <h3 class="mbr-section-subtitle mbr-fonts-style align-left mb-4 display-3"><div><strong>Who We Are</strong>&nbsp;&nbsp;&nbsp;&nbsp;</div></h3>
+                          
+			 <p class="mbr-text font-size-md mbr-fonts-style align-left mbr-regular display-5">Our Strategy & Vision<br>
+			 At K Mean Black, our strategy is simple yet <strong>bold.</strong> We are dedicated to providing you with an exceptional experience through our comprehensive services, including sustainable packaging, web design, and graphic design.<br>
+We also aim to support the next generation of printing professionals by offering valuable resources and information to printing students, helping them enhance their knowledge and skills.</p>
+                      <div class="my-4 mbr-section-btn align-center"><a class="btn btn-outline-info btn-sm px-4 me-sm-2 fw-bold" href="/aboutus">Explore Us</a></div>
+                          </div>
+                      </div>
+                  </div>
+             
+     <div class="border-top row align-items-center">
+       <div class="col-12 col-lg-6">
+         <div class="text-wrapper align-left">
+            <h3 class="mbr-section-subtitle mbr-fonts-style align-left mb-4 display-3"><div><strong>Supply Chain Management</strong>&nbsp;&nbsp;&nbsp;&nbsp;</div></h3>
+             
+             <p class="mbr-text font-size-md mbr-fonts-style align-left mbr-regular display-5">At K Mean Black, we connect the global supply chain by delivering tailored, end-to-end logistics solutions for brands and retailers. Our goal is to shape the future of supply chain management, enabling our customers to thrive in the digital economy.<br>
+We are committed to making a positive impact by improving the lives of one billion people within the supply chain, creating more efficient, sustainable, and accessible solutions for all..</p>
+         <div class="my-4 mbr-section-btn align-center"><a class="btn btn-outline-info btn-sm px-4 me-sm-2 fw-bold" href="/buyingagent">Find MORE</a></div>
+             </div>
+         </div>
+         <div class="col-12 col-md-6">
+           <div class="my-4 image-wrapper">
+               <img src="{% static 'Home Supply Chain.png' %}" alt="">
+           </div>
+       </div>
+      </div>
+    
+      <div class="row align-items-center border-top">
+       <div class="col-12 col-md-6 border-top ">
+         <div class="my-4 image-wrapper">
+             <img src="{% static 'Home printing design.png' %}" alt="">
+         </div>
+     </div>
+     <div class="col-12 col-lg-6">
+         <div class="text-wrapper align-left">
+            <h3 class="mbr-section-subtitle mbr-fonts-style align-left mb-4 display-3"><div><strong>Printing Services</strong>&nbsp;&nbsp;&nbsp;&nbsp;</d iv></h3>
+             
+             <p class="mbr-text font-size-md mbr-fonts-style align-left mbr-regular display-5">K Mean Black is uniquely positioned to handle all your printing needs, from the initial concept to the final delivery to your customers. Our expertise and capabilities ensure that every project is executed with precision, quality, and efficiency, setting us apart from the competition.</p>
+         <div class="my-4 mbr-section-btn align-center"><a class="btn btn-outline-info btn-sm px-4 me-sm-2 fw-bold" href="/printing">Look for a while</a></div>
+             </div>
+         </div>
+     </div>
+
+
+<div class="border-top row align-items-center">
+<div class="col-12 col-lg-6">
+<div class="text-wrapper align-left">
+<h3 class="mbr-section-subtitle mbr-fonts-style align-left mb-4 display-3"><div><strong>Graphic and Web Designing</strong>&nbsp;&nbsp;&nbsp;&nbsp;</div></h3>
+
+<p class="mbr-text font-size-md mbr-fonts-style align-left mbr-regular display-5"><strong>Web Design</strong> – We craft innovative, future-ready web experiences that align with and elevate your brand.<br><br>	
+<strong>Graphic Design</strong> – As your creative production partner, we deeply understand your brand, goals, and vision, delivering designs that resonate and drive success. </p>
+<div class="my-4 mbr-section-btn align-center"><a class="btn btn-outline-info btn-sm px-4 me-sm-2 fw-bold" href="/services">Go on to Page</a></div>
+</div>
+</div>
+<div class="col-12 col-md-6">
+<div class="my-4 image-wrapper">
+  <img src="{% static 'Home Web and Graphic designs.png' %}" alt="">
+</div>
+</div>
+     </div>
+   </div>     
+  
+</div>
+
+     <!-- /END THE FEATURETTES -->
+
+{% endblock body %}

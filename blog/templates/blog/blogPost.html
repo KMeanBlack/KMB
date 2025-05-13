@@ -1,0 +1,249 @@
+{% extends 'blog/basic.html' %}
+{% block title %} {{post.category}} -- K Mean Black  {% endblock %}
+{% load static%}
+
+{% block content %}
+<!-- page-banner-area-start -->
+{% load humanize %}
+{% load extras %}
+<div class="page-banner-area page-banner-height-2" data-background="{% static 'assets/img/banner/page-banner-4.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="page-banner-content text-center">
+                    <h4 class="breadcrumb-title">Blog Details</h4>
+                    <div class="breadcrumb-two">
+                        <nav>
+                           <nav class="breadcrumb-trail breadcrumbs">
+                              <ul class="breadcrumb-menu">
+                                 <li class="breadcrumb-trail">
+                                    <a href="index.html"><span>Home</span></a>
+                                 </li>
+                                 <li class="trail-item">
+                                    <span>Blog Details</span>
+                                 </li>
+                              </ul>
+                           </nav> 
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- page-banner-area-end -->
+
+<div class="news-detalis-area mt-120 mb-70">
+    <div class="position-relative overflow-hidden p-3 p-lg-12 m-lg-5">
+       <div class="row">
+          <div class="col-xl-12 col-lg-12">
+            <div class="news-detalis-content mb-50">
+                <ul class="blog-meta mb-20">
+                   <li><i class="fal fa-eye"></i>  {{post.views}}</li>
+                   <li><a href="#"><i class="fal fa-comments"></i> {{comments.count}} Comments</a></li>
+                   <li><i class="fal fa-calendar-alt"></i> {{post.timeStamp}}</li>
+                </ul>
+                <p>Written by <strong>{{post.author}}</strong></p>
+                <!--<div class="news-thumb mt-40">
+                   <img src='#' style="width: 55rem; height:30rem;" alt="#" class="img-fluid">
+                </div>-->
+                <h4 class="news-title mt-60">{{post.title}} </h4>
+                <p class="mt-25 mb-50">{{post.content|safe}}</p>
+
+
+                
+                <div class="news-info d-sm-flex align-items-center justify-content-between mt-50 mb-50">
+                   <div class="news-tag">
+                    <!-- <h6 class="tag-title mb-25">Releted Tags</h6>
+                     {% for tag in tags %}
+                    <a class="single-tag" href="{% url 'tag_blogs' tag.slug %}"> {{tag.title}}</a>
+                     {% endfor%}-->
+                   </div>
+                   <div class="news-share">
+                      <!--<h6 class="tag-title mb-25">Social Share</h6>
+                      <a href="#"><i class="fab fa-facebook-f"></i></a>
+                      <a href="#"><i class="fab fa-twitter"></i></a>
+                    
+                      <a href="#"><i class="fal fa-share-alt"></i></a>-->
+                   </div>
+                </div>
+            <!--    <div class="news-navigation pt-50 pb-40">
+                   <div class="changes-info">
+                      <span><a href="blog-details.html">Prev Post</a></span>
+                      <h7 class="changes-info-title"><a href="blog-details.html">Tips On Minimalist</a></h6>
+                   </div>
+                   <div class="changes-info text-md-right">
+                      <span><a href="blog-details.html">Next Post</a></span>
+                      <h6 class="changes-info-title"><a href="blog-details.html">Less Is More</a></h6>
+                   </div>
+                </div>-->
+             <div class="news-author mt-60">
+                   <img src="/media/{{post.image}}" alt="" class="img-fluid">
+                   <div class="news-author-info">
+                      <span>Written by</span>
+                      <h6 class="author-title">{{post.author}}</h6>
+                      <p>{{Post.authordetail}}</p>
+                   </div>
+                </div>
+              
+            <div class="post-comments mt-60">
+                  <h6 class="post-comment-title mb-40">{{comments.count}} Comments</h6>
+                   
+   
+<div class="latest-comments">
+      {% for comment in comments %}
+      <div class="comments-box">
+     <div class="comments-avatar col-md-1">
+          <!--     <img src="/media/{{post.image}}" alt="user">-->
+        </div>
+        <div class="comments-text">
+         <div class="">
+            <h6 class="avatar-name">{{comment.user.username}}</h6>
+          
+            <span class="post-meta"><i class="fal fa-calendar-alt"></i>{{comment.timestamp| naturaltime}}</span>
+            <p>{{comment.comment}}</p>
+         </div>
+     
+            <div class="reply mx-0 ">
+              {% if user.is_authenticated %}
+              <a><button class="comment-reply" type="button" data-toggle="collaps" data-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}"><i class="fal fa-share"></i>Reply</button></a>
+
+                <div class="collaps" id="replyBox{{comment.sno}}">
+                    <div class="post-comment-form mt-20">
+                        <form action="/blog/postComment" method="post">
+                            {% csrf_token %}
+                            <div class="post-comment-form-title  form-group mx-2">
+                                <label for="comment">Post a reply </label>
+                                <input type="text" class="form-control-fluid comments-text" name="comment" placeholder="Enter comment here">
+                                <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                            </div>
+                            <input type="hidden" name="postSno" value="{{post.sno}}">
+                            <button type="submit" class="post-comment shutter-btn mx-0"><i class="fal fa-comments"></i>Submit</button>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <button class="post-comment shutter-btn mx-0" type="button" data-toggle="collapse" data-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}"><i class="fal fa-comments"></i>
+                    Login to reply
+                </button>
+                {% endif %}
+                <div class="children replies mx-2">
+                    {% for reply in replyDict|get_val:comment.sno %}
+                    <div class="comments-box">
+                        <div class="comments-avatar col-md-1">
+                            <!--   <img src="/media/{{post.image}}" alt="user">-->
+                        </div>
+                        <div class="comments-text">
+                            <h6 class="avatar-name">{{reply.user.username}}</h6> 
+                                <span class="post-meta"><i class="fal fa-calendar-alt"></i> {{reply.timestamp| naturaltime}}</span>
+                                <div>{{reply.comment}}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+                  
+                <div class="post-comment-form mt-20 mx-2">
+                  {% if user.is_authenticated %}
+                   <h4 class="post-comment-form-title mb-40">Post Comment</h4>
+                   <form action="/blog/postComment" method="post">
+                     {% csrf_token %}
+                      <div class="input-field">
+                     <input type="text" name="comment" id="comment" placeholder="Type your comments...."> <i class=" form-control fal fa-pencil-alt"></i></input>
+                       </div>
+                       <div class="input-field">
+                           <i class="fal fa-user"></i>
+                           <input type="text" placeholder="{{comment.user.username}} Type your name....">
+                       </div>
+                       
+                       <input type="hidden" name="postSno" value="{{post.sno}}">
+                        <input type="hidden" name="parentSno" value="">
+                       <button type="submit" class="post-comment shutter-btn"><i class="fal fa-comments"></i>{{reply.comment}} Post
+                           Comment</button>
+                   </form> 
+                   {% else %}
+                  
+                  <h4 class="display-5"><strong> Please login to post a comment</strong></h4>
+                 
+                   {% endif %} 
+               
+            
+             </div> 
+                     
+          </div>
+          
+       </div>
+    </div>
+  
+ </div>
+ 
+ <!-- news-detalis-area-end  -->
+ 
+ <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+ 
+
+ <!-- news-detalis-area-start -->
+
+ <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+
+
+{% endblock%}
+
+
+

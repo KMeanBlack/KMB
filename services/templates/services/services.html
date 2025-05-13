@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+{% block title %} Graphic and Websites Designs
+{% endblock title %}
+
+{% block body %}
+{% load static %}
+
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img src="{% static 'service page\Main page Graphic banner.gif' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block text-danger">
+        <h5>K Mean Black Co.</h5>
+        <p>"You can be the ripest, juiciest peach in the world, and there's still going to be somebody who hates peaches."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex h-100 text-center text-bg-dark">
+  <div class="py-5">
+        <h1 class="display-5 fw-bold text-white">Dark mode hero</h1>
+    <div class="col-lg-6 mx-auto">
+      
+      <p class="fs-5 mb-4 ">Innovative, Creative, Professional & full service web designing.
+        K Mean Black is a pioneering specialized in delivering website designing, and development.
+        <br><br>
+        Our team is geared to delivering More in every aspect of our business. More responsiveness, More Reliability, & More Results. We believe in excellence in execution of every task, whether it is a small assignment, or a large global campaign.
+        <br><br>
+        
+        And we intend to deliver the same for YOU!</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a type="button" href="/services/websites" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold"> Create Websites</a>
+        <a type="button" href="/services/graphicdesign" class="btn btn-outline-light btn-lg px-4"> Graphic Designs</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock%}

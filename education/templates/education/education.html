@@ -1,0 +1,195 @@
+{% extends 'home/base.html' %}
+{% block title %} Students Notes {% endblock %}
+{% load static %}
+{% block body %}
+
+<style>
+  .note-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #1e1e2f;
+    color: white;
+    height: 100%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #ccc;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .note-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+
+  .card-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .pagination button {
+    margin: 5px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #7270fc;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .pagination button.active {
+    background-color: #000;
+  }
+
+  @media (max-width: 768px) {
+    .card-buttons {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<!-- Banner -->
+<div class="carousel-inner">
+  <div class="carousel-item active">
+    <img src="{% static 'education banner.png' %}" class="d-block w-100" alt="Banner">
+    <div class="carousel-caption d-none d-md-block text-white">
+      <h5>K Mean Black Co.</h5>
+      <p>“The battles that count aren't the ones for gold medals…”</p>
+    </div>
+  </div>
+</div>
+
+<!-- Filter Section -->
+<div class="container my-4">
+  <div class="row justify-content-center g-2">
+    <div class="col-12 col-sm-6 col-md-4">
+      <select id="filterBranch" class="form-control">
+        <option value="all">All Branches</option>
+        {% for branch in branches %}
+          <option value="{{ branch }}">{{ branch }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+      <select id="filterCategory" class="form-control">
+        <option value="all">All Subjects</option>
+        {% for subject in subjects %}
+          <option value="{{ subject }}">{{ subject }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Notes Section -->
+<section class="testimonials1 cid-rR2EBpLLYM" id="team2-c">
+  <div class="container marketing text-center my-5">
+    <div id="notesContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
+      {% for notes, _, _ in allProds %}
+        {% for i in notes %}
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4 filterable" data-branch="{{ i.branch }}" data-category="{{ i.subject }}">
+            <div class="note-card card text-white h-100">
+              <img src="/media/{{ i.image }}" class="card-img-top" alt="{{ i.subject }}">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Subject: {{ i.subject }}</h5>
+                <div class="mt-auto card-buttons">
+                  <a href="/education/student/{{ i.id }}" class="btn btn-outline-info btn-sm w-100">Read</a>
+                  <a href="{{ i.notesfile.url }}" class="btn btn-outline-info btn-sm w-100">Video</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+</section>
+
+<!-- Script -->
+<script>
+  const pageSize = 8;
+  let currentPage = 1;
+  let filteredCards = [];
+
+  function filterCards() {
+    const selectedBranch = document.getElementById('filterBranch').value.toLowerCase();
+    const selectedCategory = document.getElementById('filterCategory').value.toLowerCase();
+
+    const cards = document.querySelectorAll('.filterable');
+    filteredCards = [];
+
+    cards.forEach(card => {
+      const branch = card.getAttribute('data-branch')?.toLowerCase();
+      const category = card.getAttribute('data-category')?.toLowerCase();
+
+      const matchesBranch = selectedBranch === 'all' || branch === selectedBranch;
+      const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+
+      if (matchesBranch && matchesCategory) {
+        filteredCards.push(card);
+      }
+
+      // Hide all initially
+      card.style.display = 'none';
+    });
+  }
+
+  function showPage(page) {
+    currentPage = page;
+    const totalPages = Math.ceil(filteredCards.length / pageSize);
+
+    filteredCards.forEach((card, index) => {
+      card.style.display = (index >= (page - 1) * pageSize && index < page * pageSize) ? 'block' : 'none';
+    });
+
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages) {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.innerText = i;
+      if (i === currentPage) btn.classList.add('active');
+      btn.onclick = () => showPage(i);
+      pagination.appendChild(btn);
+    }
+  }
+
+  function applyFilters() {
+    filterCards();
+    showPage(1);
+  }
+
+  document.getElementById('filterBranch').addEventListener('change', applyFilters);
+  document.getElementById('filterCategory').addEventListener('change', applyFilters);
+
+  window.onload = () => applyFilters();
+</script>
+
+{% endblock %}
+

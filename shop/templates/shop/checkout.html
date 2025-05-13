@@ -1,0 +1,197 @@
+{% extends 'shop/basic.html' %}
+{% block title%} Checkout - K Mean Black Cart{% endblock %}
+{% block body %}
+
+<!-- checkout-area-start -->
+<section class="checkout-area pb-85">
+    <div class="container">
+        <form method="post" action="/shop/checkout/">{% csrf_token %}
+            <input type="hidden" name="itemsJson" id="itemsJson">
+                                <input type="hidden" name="amount" id="amount">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkbox-form">
+                        <h3>Billing Details</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="country-select">
+                                    
+                                    <select style="display: none;">
+                                       
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="checkout-form-list" tabindex="0">
+                                    <label for="inputname"> Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                                </div>
+                            </div>
+                
+
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label for="inputAddress">Address <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="address1" name="address1" placeholder="Street address">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="checkout-form-list"><label for="inputAddress2">Address line 2</label>
+                                    <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment, suite, unit etc. (optional)">
+                                </div>
+                            </div>
+                          
+
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label for="inputCity">Town / City <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="city" name="city" placeholder="Town / City">
+                                </div>
+                            </div>
+            
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label for="inputState">State / County <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="state" name="state"  placeholder="Enter State">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label for="inputZip">Postcode / Zip <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="Postcode / Zip">
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label for="inputEmail4">Email Address <span class="required">*</span></label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label for="inputZip">Phone <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                              
+                            </div>
+                        </div>
+                        <div class="different-address">
+                           
+                            <div id="ship-box-info">
+                                <div class="row">
+                                   
+                                    
+                                   
+                                    <div class="col-md-6">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-lg-6">
+                    <div class="your-order mb-30 ">
+                        <h3>Your order</h3>
+                        <div class="your-order-table table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-total" id="items"></th>
+                                    </tr>
+                                </thead>
+                               
+                                <tfoot>
+                                    <tr class="order-total">
+                                        <th>Order Total</th>
+                                        <td><strong><span class="amount"id="totalPrice"></span></strong>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div class="payment-method">
+                            <div class="accordion" id="checkoutAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="checkoutOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#bankOne" aria-expanded="true" aria-controls="bankOne">
+                                    Direct Bank Transfer
+                                    </button>
+                                </h2>
+                                <div id="bankOne" class="accordion-collapse collapse show" aria-labelledby="checkoutOne" data-bs-parent="#checkoutAccordion">
+                                    <div class="accordion-body">
+                                     <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            <div class="order-button-payment mt-20">
+                            <button type="submit" class="tp-btn-h1">Place order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- checkout-area-end -->
+
+
+{% endblock %}
+
+
+
+{% block js %}
+<script>
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+console.log(cart);
+var sum = 0;
+var totalPrice = 0;
+if ($.isEmptyObject(cart)) {
+    //if object is empty
+    mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+    $('#items').append(mystr);
+} else {
+    for (item in cart) {
+        let name = cart[item][1];
+        let qty = cart[item][0];
+        let itemPrice = cart[item][2];
+        sum = sum + qty;
+        totalPrice = totalPrice + qty* itemPrice;
+        mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${name}
+                    <span class="badge badge-primary badge-pill">${qty}</span>
+                </li>`
+        $('#items').append(mystr);
+    }
+}
+document.getElementById('cart').innerHTML = sum;
+document.getElementById('totalPrice').innerHTML = totalPrice;
+$('#itemsJson').val(JSON.stringify(cart));
+{% if thank %}
+alert('Thanks for ordering with us. Your order is is {{id}}. Use it to track your order using our order tracker');
+localStorage.clear();
+document.location = "/shop";
+{% endif %}
+$('#amount').val($('#totalPrice').html())
+</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'blog/basic.html' %}
+{% block title%} | Blog {% endblock%}
+{% load static%}
+{% block content %}
+                                            {% for post in post_by_category %}
+
+                                            {% if post.category.category_name  == category.category_name %}
+                                      
+                                            <div class="d-lg-flex post-entry-2">
+                                              <a href="{{post.get_url}}" class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
+                                                <img src="{{post.heder_image.url}}" alt="" class="img-fluid">
+                                              </a>
+                                              <div>
+                                                <div class="post-meta"><span class="date"><a href="{{category.get_url }}">{{category.category_name }}</a>
+                                                  </span> <span class="mx-1">&bullet;</span> <span>{{post.timeStamp}}</span></div>
+                                                <h3><a href="{{post.get_url}}">{{post.title}}</a></h3>
+                                                <p>{{post.meta_description}}</p>
+                                                <div class="d-flex align-items-center author">
+                                                </div>
+                                              </div>
+                                            </div>
+                                            {% endif %}
+                                      
+                                            {% endfor %}
+                                      
+                                          </div>
+                                          {% endblock%}
